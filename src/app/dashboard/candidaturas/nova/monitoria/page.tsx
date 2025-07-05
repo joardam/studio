@@ -62,7 +62,11 @@ export default function CandidaturaMonitoriaPage() {
                     <span>{disciplina.vagas} Vagas</span>
                   </div>
                 </div>
-                <Button>Candidatar-se</Button>
+                <Button asChild>
+                  <Link href={`/dashboard/candidaturas/submeter?tipo=monitoria&disciplina=${encodeURIComponent(disciplina.nome)}&professor=${encodeURIComponent(disciplina.professor)}`}>
+                    Candidatar-se
+                  </Link>
+                </Button>
               </div>
             ))
           ) : (

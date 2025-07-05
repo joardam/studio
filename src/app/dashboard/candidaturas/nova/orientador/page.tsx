@@ -74,7 +74,11 @@ function OrientadorSelection() {
                     <p className="text-sm text-muted-foreground">{professor.area}</p>
                   </div>
                 </div>
-                <Button>Solicitar Orientação</Button>
+                <Button asChild>
+                  <Link href={`/dashboard/candidaturas/submeter?tipo=${tipo}&professor=${encodeURIComponent(professor.nome)}`}>
+                      Solicitar Orientação
+                  </Link>
+                </Button>
               </div>
             ))
           ) : (
