@@ -6,12 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
 import Link from "next/link";
 import {
   FilePlus2,
@@ -49,7 +43,7 @@ const AlunoDashboard = () => {
     <div className="grid gap-6">
       <Card>
         <CardHeader>
-          <CardTitle>Visão Geral</CardTitle>
+          <CardTitle>Visão Geral do Aluno</CardTitle>
           <CardDescription>Seus processos ativos e seus status.</CardDescription>
         </CardHeader>
         <CardContent>
@@ -111,7 +105,7 @@ const ProfessorDashboard = () => {
     <div className="grid gap-6">
       <Card>
         <CardHeader>
-          <CardTitle>Visão Geral</CardTitle>
+          <CardTitle>Visão Geral do Professor</CardTitle>
           <CardDescription>Solicitações de orientação pendentes.</CardDescription>
         </CardHeader>
         <CardContent>
@@ -138,7 +132,7 @@ const CoordenadorDashboard = () => {
     <div className="grid gap-6">
       <Card>
         <CardHeader>
-          <CardTitle>Visão Geral</CardTitle>
+          <CardTitle>Visão Geral do Coordenador</CardTitle>
           <CardDescription>Suas pendências como coordenador e professor.</CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4 md:grid-cols-2">
@@ -175,7 +169,7 @@ const AdminDashboard = () => {
     <div className="grid gap-6">
       <Card>
         <CardHeader>
-          <CardTitle>Visão Geral</CardTitle>
+          <CardTitle>Visão Geral do Admin</CardTitle>
           <CardDescription>Processos finalizados aguardando emissão de certificados.</CardDescription>
         </CardHeader>
         <CardContent>
@@ -197,27 +191,26 @@ const AdminDashboard = () => {
   );
 };
 
-export default function DashboardPage() {
+export default function DashboardPage({ searchParams }: { searchParams: { profile?: string } }) {
+  const profile = searchParams.profile || 'aluno';
+
+  const renderDashboard = () => {
+    switch (profile) {
+      case 'professor':
+        return <ProfessorDashboard />;
+      case 'coordenador':
+        return <CoordenadorDashboard />;
+      case 'administrativo':
+        return <AdminDashboard />;
+      case 'aluno':
+      default:
+        return <AlunoDashboard />;
+    }
+  };
+
   return (
-    <Tabs defaultValue="aluno" className="w-full">
-      <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
-        <TabsTrigger value="aluno">Aluno</TabsTrigger>
-        <TabsTrigger value="professor">Professor</TabsTrigger>
-        <TabsTrigger value="coordenador">Coordenador</TabsTrigger>
-        <TabsTrigger value="administrativo">Administrativo</TabsTrigger>
-      </TabsList>
-      <TabsContent value="aluno" className="mt-4">
-        <AlunoDashboard />
-      </TabsContent>
-      <TabsContent value="professor" className="mt-4">
-        <ProfessorDashboard />
-      </TabsContent>
-      <TabsContent value="coordenador" className="mt-4">
-        <CoordenadorDashboard />
-      </TabsContent>
-      <TabsContent value="administrativo" className="mt-4">
-        <AdminDashboard />
-      </TabsContent>
-    </Tabs>
+    <div className="w-full">
+      {renderDashboard()}
+    </div>
   );
 }
