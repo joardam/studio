@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,10 +11,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { ArrowLeft, UploadCloud, FileText } from 'lucide-react';
 
 function SubmeterCandidaturaForm() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const tipo = searchParams.get('tipo');
   const disciplina = searchParams.get('disciplina');
   const professor = searchParams.get('professor');
+  const id = searchParams.get('id');
   const [fileName, setFileName] = useState<string | null>(null);
 
   const getTitle = () => {
@@ -58,6 +60,11 @@ function SubmeterCandidaturaForm() {
     } else {
       setFileName(null);
     }
+  };
+
+  const handleSubmit = () => {
+    const backLink = getBackButtonLink();
+    router.push(`${backLink}?submittedId=${id}`);
   };
 
 
@@ -143,7 +150,7 @@ function SubmeterCandidaturaForm() {
 
         <div className="flex justify-end gap-2 mt-4">
             <Button variant="outline" asChild><Link href={getBackButtonLink()}>Cancelar</Link></Button>
-            <Button>Submeter Candidatura</Button>
+            <Button onClick={handleSubmit}>Submeter Candidatura</Button>
         </div>
     </div>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -21,6 +21,14 @@ function OrientadorSelection() {
   const searchParams = useSearchParams();
   const tipo = searchParams.get("tipo") || "tcc";
   const [searchTerm, setSearchTerm] = useState("");
+  const [submittedIds, setSubmittedIds] = useState<Set<number>>(new Set());
+
+  useEffect(() => {
+    const submittedId = searchParams.get("submittedId");
+    if (submittedId) {
+      setSubmittedIds(prevIds => new Set(prevIds).add(Number(submittedId)));
+    }
+  }, [searchParams]);
 
   const filteredProfessores = professoresMock.filter((p) =>
     p.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -74,11 +82,17 @@ function OrientadorSelection() {
                     <p className="text-sm text-muted-foreground">{professor.area}</p>
                   </div>
                 </div>
-                <Button asChild>
-                  <Link href={`/dashboard/candidaturas/submeter?tipo=${tipo}&professor=${encodeURIComponent(professor.nome)}`}>
-                      Solicitar Orientação
-                  </Link>
-                </Button>
+                {submittedIds.has(professor.id) ? (
+                  <Button variant="outline" disabled className="bg-yellow-200 text-yellow-800 border-yellow-400 hover:bg-yellow-200 cursor-not-allowed">
+                    Pedido já enviado
+                  </Button>
+                ) : (
+                  <Button asChild>
+                    <Link href={`/dashboard/candidaturas/submeter?tipo=${tipo}&id=${professor.id}&professor=${encodeURIComponent(professor.nome)}`}>
+                        Solicitar Orientação
+                    </Link>
+                  </Button>
+                )}
               </div>
             ))
           ) : (

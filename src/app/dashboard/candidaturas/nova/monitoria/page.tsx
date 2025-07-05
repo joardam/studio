@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -15,8 +16,17 @@ const disciplinasMock = [
   { id: 5, nome: "Redes de Computadores", professor: "Prof. Dr. João Silva", vagas: 1 },
 ];
 
-export default function CandidaturaMonitoriaPage() {
+function MonitoriaSelection() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [submittedIds, setSubmittedIds] = useState<Set<number>>(new Set());
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const submittedId = searchParams.get("submittedId");
+    if (submittedId) {
+      setSubmittedIds(prevIds => new Set(prevIds).add(Number(submittedId)));
+    }
+  }, [searchParams]);
 
   const filteredDisciplinas = disciplinasMock.filter((d) =>
     d.nome.toLowerCase().includes(searchTerm.toLowerCase())
@@ -62,11 +72,17 @@ export default function CandidaturaMonitoriaPage() {
                     <span>{disciplina.vagas} Vagas</span>
                   </div>
                 </div>
-                <Button asChild>
-                  <Link href={`/dashboard/candidaturas/submeter?tipo=monitoria&disciplina=${encodeURIComponent(disciplina.nome)}&professor=${encodeURIComponent(disciplina.professor)}`}>
-                    Candidatar-se
-                  </Link>
-                </Button>
+                {submittedIds.has(disciplina.id) ? (
+                  <Button variant="outline" disabled className="bg-yellow-200 text-yellow-800 border-yellow-400 hover:bg-yellow-200 cursor-not-allowed">
+                    Pedido já enviado
+                  </Button>
+                ) : (
+                  <Button asChild>
+                    <Link href={`/dashboard/candidaturas/submeter?tipo=monitoria&id=${disciplina.id}&disciplina=${encodeURIComponent(disciplina.nome)}&professor=${encodeURIComponent(disciplina.professor)}`}>
+                      Candidatar-se
+                    </Link>
+                  </Button>
+                )}
               </div>
             ))
           ) : (
@@ -76,4 +92,13 @@ export default function CandidaturaMonitoriaPage() {
       </CardContent>
     </Card>
   );
+}
+
+
+export default function CandidaturaMonitoriaPage() {
+    return (
+        <Suspense fallback={<Card><CardHeader><CardTitle>Carregando...</CardTitle></CardHeader><CardContent><div className="h-48 w-full"></div></CardContent></Card>}>
+            <MonitoriaSelection />
+        </Suspense>
+    )
 }
