@@ -17,10 +17,27 @@ import {
 } from "@/components/ui/popover";
 import { HelpCircle } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
+  const searchParams = useSearchParams();
+  
+  const profileToEmailMap: { [key: string]: string } = {
+    professor: "professor@upe.br",
+    coordenador: "coordenador@upe.br",
+    administrativo: "admin@upe.br",
+    aluno: "aluno@upe.br",
+  };
+
+  useEffect(() => {
+    const profileParam = searchParams.get('profile');
+    if (profileParam && profileToEmailMap[profileParam]) {
+        setEmail(profileToEmailMap[profileParam]);
+    }
+  }, [searchParams]);
+
 
   const getProfileFromEmail = () => {
     if (email === "professor@upe.br") return "professor";
@@ -28,6 +45,10 @@ export default function Login() {
     if (email === "admin@upe.br") return "administrativo";
     // Default to a student for any other email, including 'aluno@upe.br'
     return "aluno";
+  };
+  
+  const handleLoginClick = () => {
+    sessionStorage.setItem('userProfile', getProfileFromEmail());
   };
 
   const dashboardUrl = `/dashboard?profile=${getProfileFromEmail()}`;
@@ -112,7 +133,7 @@ export default function Login() {
               </div>
               <Input id="password" type="password" />
             </div>
-            <Button asChild className="w-full">
+            <Button asChild className="w-full" onClick={handleLoginClick}>
               <Link href={dashboardUrl}>Entrar</Link>
             </Button>
           </div>
