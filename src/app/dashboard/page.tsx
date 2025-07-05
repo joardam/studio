@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -218,8 +219,9 @@ const AdminDashboard = () => {
   );
 };
 
-export default function DashboardPage({ searchParams }: { searchParams: { profile?: string } }) {
-  const profile = searchParams.profile || 'aluno';
+export default function DashboardPage() {
+  const searchParams = useSearchParams();
+  const profile = searchParams.get('profile') || 'aluno';
 
   const renderDashboard = () => {
     switch (profile) {
