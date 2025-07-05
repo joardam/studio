@@ -46,7 +46,7 @@ const QuickLink = ({ href, icon: Icon, children }: { href: string, icon: React.E
 };
 
 const AlunoDashboard = () => {
-  const [monitoriaAprovada, setMonitoriaAprovada] = useState(true);
+  const [monitoriaAprovada, setMonitoriaAprovada] = useState(false);
 
   return (
     <div className="grid gap-6">
