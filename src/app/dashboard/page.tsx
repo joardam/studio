@@ -1,8 +1,11 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -26,6 +29,9 @@ import {
   FileText
 } from "lucide-react";
 import type { ReactNode } from "react";
+import { useState } from "react";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 const QuickLink = ({ href, icon: Icon, children }: { href: string, icon: React.ElementType, children: ReactNode }) => {
   return (
@@ -39,6 +45,8 @@ const QuickLink = ({ href, icon: Icon, children }: { href: string, icon: React.E
 };
 
 const AlunoDashboard = () => {
+  const [monitoriaAprovada, setMonitoriaAprovada] = useState(true);
+
   return (
     <div className="grid gap-6">
       <Card>
@@ -54,9 +62,28 @@ const AlunoDashboard = () => {
                 <Star className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-green-600">Aprovada</div>
-                <p className="text-xs text-muted-foreground">Parabéns!</p>
+                {monitoriaAprovada ? (
+                    <>
+                        <div className="text-2xl font-bold text-green-600">Aprovada</div>
+                        <p className="text-xs text-muted-foreground">Parabéns!</p>
+                    </>
+                ) : (
+                    <>
+                        <div className="text-2xl font-bold">Nenhuma</div>
+                        <p className="text-xs text-muted-foreground">Nenhuma monitoria ativa.</p>
+                    </>
+                )}
               </CardContent>
+              <CardFooter>
+                 <div className="flex items-center space-x-2">
+                    <Switch
+                        id="monitoria-status"
+                        checked={monitoriaAprovada}
+                        onCheckedChange={setMonitoriaAprovada}
+                    />
+                    <Label htmlFor="monitoria-status">Simular Aprovação</Label>
+                </div>
+              </CardFooter>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -90,7 +117,7 @@ const AlunoDashboard = () => {
           <CardTitle>Atalhos Rápidos</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-          <QuickLink href="/dashboard/candidaturas/nova" icon={FilePlus2}>Submeter Candidatura</QuickLink>
+          <QuickLink href={`/dashboard/candidaturas/nova?monitoriaAprovada=${monitoriaAprovada}`} icon={FilePlus2}>Submeter Candidatura</QuickLink>
           <QuickLink href="#" icon={ListTodo}>Acompanhar Candidaturas</QuickLink>
           <QuickLink href="#" icon={Calendar}>Meu Cronograma</QuickLink>
           <QuickLink href="#" icon={User}>Atualizar Cadastro</QuickLink>
