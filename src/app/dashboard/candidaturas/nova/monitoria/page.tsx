@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from "react";
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Users, User } from "lucide-react";
+import { Search, Users, User, ArrowLeft } from "lucide-react";
 
 const disciplinasMock = [
   { id: 1, nome: "Cálculo Vetorial", professor: "Prof. Dr. Vinícius Moura", vagas: 2 },
@@ -23,9 +24,17 @@ export default function CandidaturaMonitoriaPage() {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Candidatura para Monitoria</CardTitle>
-        <CardDescription>Selecione a disciplina desejada.</CardDescription>
+      <CardHeader className="flex-row items-start gap-4">
+        <Button asChild variant="outline" size="icon" className="shrink-0">
+          <Link href="/dashboard/candidaturas/nova">
+            <ArrowLeft className="h-4 w-4" />
+            <span className="sr-only">Voltar</span>
+          </Link>
+        </Button>
+        <div className="flex-1">
+          <CardTitle>Candidatura para Monitoria</CardTitle>
+          <CardDescription>Selecione a disciplina desejada.</CardDescription>
+        </div>
       </CardHeader>
       <CardContent className="grid gap-6">
         <div className="relative">

@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, Suspense } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Search } from "lucide-react";
+import { Search, ArrowLeft } from "lucide-react";
 
 const professoresMock = [
   { id: 1, nome: "Prof. Dr. Pedro Henrique", area: "Engenharia de Software, Inteligência Artificial" },
@@ -32,9 +33,17 @@ function OrientadorSelection() {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>Filtre os professores por nome ou área de pesquisa.</CardDescription>
+      <CardHeader className="flex-row items-start gap-4">
+        <Button asChild variant="outline" size="icon" className="shrink-0">
+          <Link href="/dashboard/candidaturas/nova">
+            <ArrowLeft className="h-4 w-4" />
+            <span className="sr-only">Voltar</span>
+          </Link>
+        </Button>
+        <div className="flex-1">
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>Filtre os professores por nome ou área de pesquisa.</CardDescription>
+        </div>
       </CardHeader>
       <CardContent className="grid gap-6">
         <div className="relative">
