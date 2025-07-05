@@ -35,6 +35,18 @@ const candidaturasMock = [
     titulo: 'Monitoria de Redes de Computadores',
     status: 'Cancelada pelo Aluno',
   },
+  {
+    id: 5,
+    tipo: 'TCC',
+    titulo: 'Orientação de TCC com Prof. Dr. Vinícius Moura',
+    status: 'Aprovada',
+  },
+  {
+    id: 6,
+    tipo: 'Estágio',
+    titulo: 'Estágio Supervisionado com Prof. Dr. João Silva',
+    status: 'Aprovada',
+  },
 ];
 
 type Status = 'Pendente' | 'Aprovada' | 'Rejeitada' | 'Cancelada pelo Aluno';

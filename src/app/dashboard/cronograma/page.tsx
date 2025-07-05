@@ -22,34 +22,34 @@ const hoje = new Date();
 const cronogramaMockData = [
   {
     id: 1,
-    processo: 'TCC',
-    titulo: 'Orientação de TCC com Prof. Dr. Pedro Henrique',
-    pendencia: 'Entrega da versão final do Artigo',
-    vencimento: addDays(hoje, -5),
-    link: '/dashboard/candidaturas/3'
-  },
-  {
-    id: 2,
-    processo: 'Estágio',
-    titulo: 'Orientação de Estágio com Prof. Dr. Maria Clara',
-    pendencia: 'Submissão do relatório de atividades',
-    vencimento: addDays(hoje, 6),
-    link: '/dashboard/candidaturas/2'
-  },
-  {
-    id: 3,
     processo: 'Monitoria',
     titulo: 'Monitoria de Engenharia de Software I',
     pendencia: 'Enviar plano de atividades mensal',
-    vencimento: addDays(hoje, 20),
+    vencimento: addDays(hoje, 15),
     link: '/dashboard/candidaturas/1'
+  },
+  {
+    id: 2,
+    processo: 'TCC',
+    titulo: 'Orientação de TCC com Prof. Dr. Vinícius Moura',
+    pendencia: 'Entrega da primeira versão do Artigo',
+    vencimento: addDays(hoje, 5),
+    link: '/dashboard/candidaturas/5'
+  },
+  {
+    id: 3,
+    processo: 'Estágio',
+    titulo: 'Estágio Supervisionado com Prof. Dr. João Silva',
+    pendencia: 'Submissão do primeiro relatório de atividades',
+    vencimento: addDays(hoje, 25),
+    link: '/dashboard/candidaturas/6'
   },
   {
     id: 4,
     processo: 'Monitoria',
     titulo: 'Monitoria de Engenharia de Software I',
     pendencia: 'Relatório parcial de frequência',
-    vencimento: addDays(hoje, 45),
+    vencimento: addDays(hoje, -3),
     link: '/dashboard/candidaturas/1'
   },
 ];

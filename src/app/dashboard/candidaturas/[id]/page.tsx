@@ -30,7 +30,7 @@ const candidaturasMock = [
     dataSubmissao: '15/09/2025',
     documentos: [
         { nome: 'Curriculo.pdf', url: '#' },
-        { nome: 'Pre_projeto_estagio.pdf', url: '#' }
+        { nome: 'Proposta_estagio.pdf', url: '#' }
     ],
     historico: [{ data: '15/09/2025', status: 'Candidatura Enviada' }],
   },
@@ -59,6 +59,30 @@ const candidaturasMock = [
       { data: '18/07/2025', status: 'Candidatura Enviada' },
     ],
   },
+  {
+    id: 5,
+    tipo: 'TCC',
+    titulo: 'Orientação de TCC com Prof. Dr. Vinícius Moura',
+    status: 'Aprovada',
+    dataSubmissao: '10/06/2025',
+    documentos: [{ nome: 'Projeto_TCC_Aprovado.pdf', url: '#' }],
+    historico: [
+        { data: '12/06/2025', status: 'Candidatura Aprovada' },
+        { data: '10/06/2025', status: 'Candidatura Enviada' },
+    ]
+  },
+  {
+    id: 6,
+    tipo: 'Estágio',
+    titulo: 'Estágio Supervisionado com Prof. Dr. João Silva',
+    status: 'Aprovada',
+    dataSubmissao: '01/07/2025',
+    documentos: [{ nome: 'Termo_Compromisso_Estagio.pdf', url: '#' }],
+    historico: [
+        { data: '05/07/2025', status: 'Candidatura Aprovada' },
+        { data: '01/07/2025', status: 'Candidatura Enviada' },
+    ]
+  }
 ];
 
 
