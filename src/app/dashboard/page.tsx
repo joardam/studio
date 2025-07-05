@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useSearchParams } from "next/navigation";
@@ -120,7 +121,7 @@ const AlunoDashboard = () => {
         <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           <QuickLink href={`/dashboard/candidaturas/nova?monitoriaAprovada=${monitoriaAprovada}`} icon={FilePlus2}>Submeter Candidatura</QuickLink>
           <QuickLink href="/dashboard/candidaturas" icon={ListTodo}>Acompanhar Candidaturas</QuickLink>
-          <QuickLink href="#" icon={Calendar}>Meu Cronograma</QuickLink>
+          <QuickLink href="/dashboard/cronograma" icon={Calendar}>Meu Cronograma</QuickLink>
           <QuickLink href="#" icon={User}>Atualizar Cadastro</QuickLink>
         </CardContent>
       </Card>
