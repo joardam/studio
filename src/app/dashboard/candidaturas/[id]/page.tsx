@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { notFound, useParams } from 'next/navigation';
+import { notFound, useParams, useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -73,6 +73,7 @@ const statusColors: Record<Status, string> = {
 
 
 export default function DetalhesCandidaturaPage() {
+  const router = useRouter();
   const params = useParams<{ id: string }>();
   const candidatura = candidaturasMock.find((c) => c.id === parseInt(params.id, 10));
 
@@ -83,11 +84,9 @@ export default function DetalhesCandidaturaPage() {
   return (
     <div className="grid gap-6">
        <div className="flex items-center gap-4">
-        <Button asChild variant="outline" size="icon" className="shrink-0">
-          <Link href="/dashboard/candidaturas">
+        <Button variant="outline" size="icon" className="shrink-0" onClick={() => router.back()}>
             <ArrowLeft className="h-4 w-4" />
             <span className="sr-only">Voltar</span>
-          </Link>
         </Button>
         <div className="flex-1">
           <h1 className="text-2xl font-semibold leading-none tracking-tight">Detalhes da Candidatura</h1>
