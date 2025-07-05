@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -72,7 +72,8 @@ const statusColors: Record<Status, string> = {
 };
 
 
-export default function DetalhesCandidaturaPage({ params }: { params: { id: string } }) {
+export default function DetalhesCandidaturaPage() {
+  const params = useParams<{ id: string }>();
   const candidatura = candidaturasMock.find((c) => c.id === parseInt(params.id, 10));
 
   if (!candidatura) {
