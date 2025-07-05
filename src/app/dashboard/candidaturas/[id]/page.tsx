@@ -71,18 +71,6 @@ const candidaturasMock = [
         { data: '10/06/2025', status: 'Candidatura Enviada' },
     ]
   },
-  {
-    id: 6,
-    tipo: 'Estágio',
-    titulo: 'Estágio Supervisionado com Prof. Dr. João Silva',
-    status: 'Aprovada',
-    dataSubmissao: '01/07/2025',
-    documentos: [{ nome: 'Termo_Compromisso_Estagio.pdf', url: '#' }],
-    historico: [
-        { data: '05/07/2025', status: 'Candidatura Aprovada' },
-        { data: '01/07/2025', status: 'Candidatura Enviada' },
-    ]
-  }
 ];
 
 

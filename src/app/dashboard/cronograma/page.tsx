@@ -37,14 +37,6 @@ const cronogramaMockData = [
     link: '/dashboard/candidaturas/5'
   },
   {
-    id: 3,
-    processo: 'Estágio',
-    titulo: 'Estágio Supervisionado com Prof. Dr. João Silva',
-    pendencia: 'Submissão do primeiro relatório de atividades',
-    vencimento: addDays(hoje, 25),
-    link: '/dashboard/candidaturas/6'
-  },
-  {
     id: 4,
     processo: 'Monitoria',
     titulo: 'Monitoria de Engenharia de Software I',

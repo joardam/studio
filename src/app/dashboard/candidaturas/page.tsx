@@ -41,12 +41,6 @@ const candidaturasMock = [
     titulo: 'Orientação de TCC com Prof. Dr. Vinícius Moura',
     status: 'Aprovada',
   },
-  {
-    id: 6,
-    tipo: 'Estágio',
-    titulo: 'Estágio Supervisionado com Prof. Dr. João Silva',
-    status: 'Aprovada',
-  },
 ];
 
 type Status = 'Pendente' | 'Aprovada' | 'Rejeitada' | 'Cancelada pelo Aluno';
