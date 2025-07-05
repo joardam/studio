@@ -13,23 +13,26 @@ export default function NovaCandidaturaPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4 md:grid-cols-3">
-          <Link href="/dashboard/candidaturas/nova/monitoria" className="block h-full">
-            <Card className="flex flex-col items-center justify-center p-6 text-center hover:bg-accent hover:text-accent-foreground transition-colors h-full">
-              <BookOpen className="h-12 w-12 mb-4 text-primary" />
-              <h3 className="text-lg font-semibold">Monitoria</h3>
-            </Card>
+          <Link
+            href="/dashboard/candidaturas/nova/monitoria"
+            className="flex flex-col items-center justify-center p-6 text-center hover:bg-accent hover:text-accent-foreground transition-colors h-full rounded-lg border bg-card text-card-foreground shadow-sm"
+          >
+            <BookOpen className="h-12 w-12 mb-4 text-primary" />
+            <h3 className="text-lg font-semibold">Monitoria</h3>
           </Link>
-          <Link href="/dashboard/candidaturas/nova/orientador?tipo=estagio" className="block h-full">
-            <Card className="flex flex-col items-center justify-center p-6 text-center hover:bg-accent hover:text-accent-foreground transition-colors h-full">
-              <Briefcase className="h-12 w-12 mb-4 text-primary" />
-              <h3 className="text-lg font-semibold">Estágio</h3>
-            </Card>
+          <Link
+            href="/dashboard/candidaturas/nova/orientador?tipo=estagio"
+            className="flex flex-col items-center justify-center p-6 text-center hover:bg-accent hover:text-accent-foreground transition-colors h-full rounded-lg border bg-card text-card-foreground shadow-sm"
+          >
+            <Briefcase className="h-12 w-12 mb-4 text-primary" />
+            <h3 className="text-lg font-semibold">Estágio</h3>
           </Link>
-          <Link href="/dashboard/candidaturas/nova/orientador?tipo=tcc" className="block h-full">
-            <Card className="flex flex-col items-center justify-center p-6 text-center hover:bg-accent hover:text-accent-foreground transition-colors h-full">
-              <GraduationCap className="h-12 w-12 mb-4 text-primary" />
-              <h3 className="text-lg font-semibold">TCC (Trabalho de Conclusão de Curso)</h3>
-            </Card>
+          <Link
+            href="/dashboard/candidaturas/nova/orientador?tipo=tcc"
+            className="flex flex-col items-center justify-center p-6 text-center hover:bg-accent hover:text-accent-foreground transition-colors h-full rounded-lg border bg-card text-card-foreground shadow-sm"
+          >
+            <GraduationCap className="h-12 w-12 mb-4 text-primary" />
+            <h3 className="text-lg font-semibold">TCC (Trabalho de Conclusão de Curso)</h3>
           </Link>
         </CardContent>
       </Card>
