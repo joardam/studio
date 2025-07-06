@@ -28,12 +28,15 @@ import {
   ClipboardList,
   Star,
   Briefcase,
-  FileText
+  FileText,
+  ChevronDown
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const QuickLink = ({ href, icon: Icon, children }: { href: string, icon: React.ElementType, children: ReactNode }) => {
   return (
@@ -129,7 +132,15 @@ const AlunoDashboard = () => {
   );
 };
 
+const solicitacoesPendentesMock = [
+  { id: 1, aluno: "Ana Beatriz", tipo: "TCC", avatarFallback: 'AB' },
+  { id: 2, aluno: "Carlos Eduardo", tipo: "Estágio", avatarFallback: 'CE' },
+  { id: 3, aluno: "Daniela Faria", tipo: "TCC", avatarFallback: 'DF' },
+];
+
 const ProfessorDashboard = () => {
+  const [isRequestsVisible, setIsRequestsVisible] = useState(false);
+
   return (
     <div className="grid gap-6">
       <Card>
@@ -138,7 +149,46 @@ const ProfessorDashboard = () => {
           <CardDescription>Solicitações de orientação pendentes.</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>Você tem <strong className="text-lg">3</strong> novas solicitações de orientação.</p>
+          <p>Você tem <strong className="text-lg">{solicitacoesPendentesMock.length}</strong> novas solicitações de orientação.</p>
+
+           <Collapsible
+            open={isRequestsVisible}
+            onOpenChange={setIsRequestsVisible}
+            className="mt-4"
+          >
+            <CollapsibleTrigger asChild>
+              <Button variant="outline" size="sm">
+                <ChevronDown className="mr-2 h-4 w-4 data-[state=open]:rotate-180 transition-transform" />
+                {isRequestsVisible ? "Ocultar Solicitações" : "Visualizar Solicitações"}
+              </Button>
+            </CollapsibleTrigger>
+            
+            <CollapsibleContent className="mt-4 space-y-4">
+              {solicitacoesPendentesMock.map((solicitacao) => (
+                <div key={solicitacao.id} className="flex items-center justify-between rounded-lg border p-4">
+                  <div className="flex items-center gap-4">
+                    <Avatar>
+                      <AvatarImage 
+                        src={`https://placehold.co/40x40.png`} 
+                        alt={solicitacao.aluno} 
+                        data-ai-hint="person"
+                      />
+                      <AvatarFallback>{solicitacao.avatarFallback}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="font-semibold">{solicitacao.aluno}</p>
+                      <p className="text-sm text-muted-foreground">Solicitação de Orientação de {solicitacao.tipo}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button variant="destructive" size="sm">Rejeitar</Button>
+                    <Button size="sm">Aprovar</Button>
+                  </div>
+                </div>
+              ))}
+            </CollapsibleContent>
+          </Collapsible>
+
         </CardContent>
       </Card>
       <Card>
@@ -155,6 +205,7 @@ const ProfessorDashboard = () => {
     </div>
   );
 };
+
 
 const CoordenadorDashboard = () => {
   return (
