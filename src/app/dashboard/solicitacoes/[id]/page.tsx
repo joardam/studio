@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -8,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ArrowLeft, FileText, MessageSquare } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useToast } from '@/hooks/use-toast';
 
 
 const solicitacoesMock = [
@@ -40,10 +40,19 @@ const solicitacoesMock = [
 export default function DetalhesSolicitacaoPage() {
   const router = useRouter();
   const params = useParams<{ id: string }>();
+  const { toast } = useToast();
   const solicitacao = solicitacoesMock.find((s) => s.id === parseInt(params.id, 10));
 
   if (!solicitacao) {
     notFound();
+  }
+
+  const handleDecision = () => {
+    toast({
+        title: "Sucesso!",
+        description: "Notificação enviada para o aluno."
+    });
+    router.back();
   }
 
   return (
@@ -116,8 +125,8 @@ export default function DetalhesSolicitacaoPage() {
             <CardContent className="grid gap-4">
               <Textarea placeholder="Escreva sua justificativa aqui..." rows={5} />
               <div className="grid grid-cols-2 gap-2">
-                <Button variant="destructive">Rejeitar</Button>
-                <Button>Aprovar</Button>
+                <Button variant="destructive" onClick={handleDecision}>Rejeitar</Button>
+                <Button onClick={handleDecision}>Aprovar</Button>
               </div>
             </CardContent>
           </Card>
