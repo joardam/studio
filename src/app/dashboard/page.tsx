@@ -227,7 +227,7 @@ const CoordenadorDashboard = () => {
           <QuickLink href="/dashboard/gerenciamento-orientandos" icon={Users}>Gerenciar Orientandos</QuickLink>
           <QuickLink href="/dashboard/cronogramas" icon={CalendarCheck}>Acompanhar Cronogramas</QuickLink>
           <QuickLink href="/dashboard/relatorios?profile=coordenador" icon={FileCheck2}>Aprovar Relatórios</QuickLink>
-          <QuickLink href="#" icon={Settings2}>Definir Regras do Curso</QuickLink>
+          <QuickLink href="/dashboard/configuracoes" icon={Settings2}>Definir Regras do Curso</QuickLink>
           <QuickLink href="/dashboard/validar-documentos" icon={FileClock}>Validar Documentos</QuickLink>
         </CardContent>
       </Card>
