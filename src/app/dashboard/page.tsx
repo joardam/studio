@@ -224,11 +224,10 @@ const CoordenadorDashboard = () => {
           <CardTitle>Atalhos Rápidos</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          <QuickLink href="#" icon={BookUser}>Visualizar Orientandos</QuickLink>
+          <QuickLink href="/dashboard/gerenciamento-orientandos" icon={Users}>Gerenciar Orientandos</QuickLink>
           <QuickLink href="#" icon={CalendarCheck}>Acompanhar Cronogramas</QuickLink>
           <QuickLink href="#" icon={FileCheck2}>Aprovar Relatórios</QuickLink>
           <QuickLink href="#" icon={Settings2}>Definir Regras do Curso</QuickLink>
-          <QuickLink href="#" icon={Users}>Trocar Orientador</QuickLink>
           <QuickLink href="#" icon={FileClock}>Validar Documentos</QuickLink>
         </CardContent>
       </Card>
