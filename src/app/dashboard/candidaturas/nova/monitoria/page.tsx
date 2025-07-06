@@ -73,8 +73,8 @@ function MonitoriaSelection() {
                   </div>
                 </div>
                 {submittedIds.has(disciplina.id) ? (
-                  <Button variant="outline" disabled className="bg-yellow-200 text-yellow-800 border-yellow-400 hover:bg-yellow-200 cursor-not-allowed">
-                    Pedido já enviado
+                  <Button variant="secondary" disabled>
+                    Pedido enviado
                   </Button>
                 ) : (
                   <Button asChild>
