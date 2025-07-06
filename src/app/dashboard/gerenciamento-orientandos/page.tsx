@@ -10,7 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowLeft, Search, UserSwitch, Eye } from 'lucide-react';
+import { ArrowLeft, Search, UserCog, Eye } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 // Mock Data
@@ -171,7 +171,7 @@ export default function GerenciamentoOrientandosPage() {
                                                         </Link>
                                                     </Button>
                                                     <Button variant="ghost" size="icon" onClick={() => handleOpenModal(aluno)}>
-                                                        <UserSwitch className="h-4 w-4" />
+                                                        <UserCog className="h-4 w-4" />
                                                         <span className="sr-only">Trocar Orientador</span>
                                                     </Button>
                                                 </div>
