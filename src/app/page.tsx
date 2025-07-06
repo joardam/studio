@@ -26,36 +26,35 @@ import { useToast } from "@/hooks/use-toast";
 import { HelpCircle } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+
+const profileToEmailMap: { [key: string]: string } = {
+  professor: "professor@upe.br",
+  coordenador: "coordenador@upe.br",
+  administrativo: "admin@upe.br",
+  aluno: "aluno@upe.br",
+};
 
 export default function Login() {
   const [email, setEmail] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false);
+  const [view, setView] = useState<'login' | 'register' | 'forgotPassword'>('login');
   const searchParams = useSearchParams();
   const { toast } = useToast();
-  
-  const profileToEmailMap: { [key: string]: string } = {
-    professor: "professor@upe.br",
-    coordenador: "coordenador@upe.br",
-    administrativo: "admin@upe.br",
-    aluno: "aluno@upe.br",
-  };
+
+  const getProfileFromEmail = useCallback(() => {
+    if (email.includes("professor")) return "professor";
+    if (email.includes("coordenador")) return "coordenador";
+    if (email.includes("admin")) return "administrativo";
+    return "aluno";
+  }, [email]);
 
   useEffect(() => {
     const profileParam = searchParams.get('profile');
     if (profileParam && profileToEmailMap[profileParam]) {
         setEmail(profileToEmailMap[profileParam]);
     }
-  }, [searchParams, profileToEmailMap]);
+  }, [searchParams]);
 
-
-  const getProfileFromEmail = () => {
-    if (email === "professor@upe.br") return "professor";
-    if (email === "coordenador@upe.br") return "coordenador";
-    if (email === "admin@upe.br") return "administrativo";
-    return "aluno";
-  };
-  
   const handleLoginClick = () => {
     sessionStorage.setItem('userProfile', getProfileFromEmail());
   };
@@ -66,12 +65,21 @@ export default function Login() {
         title: "Sucesso!",
         description: "Solicitação de cadastro enviada para a administração.",
     });
-    setIsRegistering(false);
+    setView('login');
+  };
+
+  const handleForgotSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Sucesso!",
+      description: "Instruções para alterar senha enviadas no email cadastrado.",
+    });
+    setView('login');
   };
 
   const dashboardUrl = `/dashboard?profile=${getProfileFromEmail()}`;
 
-  if (isRegistering) {
+  if (view === 'register') {
     return (
         <main className="flex min-h-screen items-center justify-center bg-background p-4">
             <Card className="mx-auto w-full max-w-sm">
@@ -119,13 +127,44 @@ export default function Login() {
                     </form>
                     <div className="mt-4 text-center text-sm">
                         Já tem uma conta?{" "}
-                        <button onClick={() => setIsRegistering(false)} className="underline">
+                        <button onClick={() => setView('login')} className="underline">
                             Entrar
                         </button>
                     </div>
                 </CardContent>
             </Card>
         </main>
+    );
+  }
+
+  if (view === 'forgotPassword') {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-background p-4">
+        <Card className="mx-auto w-full max-w-sm">
+          <CardHeader>
+            <CardTitle className="text-2xl">Esqueci minha senha</CardTitle>
+            <CardDescription>
+              Insira seu e-mail para receber as instruções de recuperação.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleForgotSubmit}>
+              <div className="grid gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="email-forgot">E-mail Institucional</Label>
+                  <Input id="email-forgot" type="email" placeholder="seu.email@upe.br" required />
+                </div>
+                <Button type="submit" className="w-full">
+                  Enviar
+                </Button>
+                <Button variant="outline" type="button" className="w-full" onClick={() => setView('login')}>
+                  Voltar para Login
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      </main>
     );
   }
 
@@ -200,12 +239,12 @@ export default function Login() {
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Senha</Label>
-                <Link
-                  href="#"
+                <button
+                  onClick={() => setView('forgotPassword')}
                   className="ml-auto inline-block text-sm underline"
                 >
                   Esqueci minha senha
-                </Link>
+                </button>
               </div>
               <Input id="password" type="password" />
             </div>
@@ -215,7 +254,7 @@ export default function Login() {
           </div>
           <div className="mt-4 text-center text-sm">
             Não tem uma conta?{" "}
-            <button onClick={() => setIsRegistering(true)} className="underline">
+            <button onClick={() => setView('register')} className="underline">
               Criar Conta
             </button>
           </div>
