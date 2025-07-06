@@ -118,7 +118,9 @@ export default function MeusOrientandosPage() {
                     <div>
                         <p className="font-semibold text-base">{orientando.titulo}</p>
                     </div>
-                     <Button variant="outline" size="sm" className="mt-2 w-full justify-center md:w-auto">Ver Detalhes</Button>
+                     <Button asChild variant="outline" size="sm" className="mt-2 w-full justify-center md:w-auto">
+                        <Link href={`/dashboard/orientandos/${orientando.id}`}>Ver Detalhes</Link>
+                     </Button>
                   </CardContent>
                 </Card>
               ))}
