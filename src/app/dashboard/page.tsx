@@ -157,8 +157,8 @@ const ProfessorDashboard = () => {
             className="mt-4"
           >
             <CollapsibleTrigger asChild>
-              <Button variant="outline" size="sm">
-                <ChevronDown className="mr-2 h-4 w-4 data-[state=open]:rotate-180 transition-transform" />
+              <Button variant="outline" size="sm" className="group">
+                <ChevronDown className="mr-2 h-4 w-4 transition-transform group-data-[state=open]:rotate-180" />
                 {isRequestsVisible ? "Ocultar Solicitações" : "Visualizar Solicitações"}
               </Button>
             </CollapsibleTrigger>
