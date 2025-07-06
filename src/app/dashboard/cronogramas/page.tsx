@@ -1,14 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Calendar, User, AlertCircle, CheckCircle, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { format, parseISO, isBefore, differenceInDays } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const addDays = (date: Date, days: number): string => {
     const result = new Date(date);
@@ -42,7 +43,11 @@ const getStatus = (vencimento: string) => {
     return { label: 'A Vencer', color: 'bg-blue-100 text-blue-800 border-blue-300', icon: CheckCircle };
 };
 
-export default function CronogramasProfessorPage() {
+function CronogramasContent() {
+    const searchParams = useSearchParams();
+    const profile = searchParams.get('profile') || 'professor';
+    const backUrl = `/dashboard?profile=${profile}`;
+    
     const [cronograma, setCronograma] = useState<typeof cronogramasMockData>([]);
 
     useEffect(() => {
@@ -54,7 +59,7 @@ export default function CronogramasProfessorPage() {
         <div className="grid gap-6">
             <div className="flex items-center gap-4">
                 <Button asChild variant="outline" size="icon" className="shrink-0">
-                    <Link href="/dashboard?profile=professor">
+                    <Link href={backUrl}>
                         <ArrowLeft className="h-4 w-4" />
                         <span className="sr-only">Voltar</span>
                     </Link>
@@ -108,4 +113,12 @@ export default function CronogramasProfessorPage() {
             )}
         </div>
     );
+}
+
+export default function CronogramasProfessorPage() {
+    return (
+        <Suspense fallback={<Card><CardHeader><CardTitle>Carregando...</CardTitle></CardHeader></Card>}>
+            <CronogramasContent />
+        </Suspense>
+    )
 }

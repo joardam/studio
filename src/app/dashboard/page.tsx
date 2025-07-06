@@ -137,7 +137,7 @@ const solicitacoesPendentesMock = [
   { id: 3, aluno: "Daniela Faria", tipo: "TCC", avatarFallback: 'DF' },
 ];
 
-const ProfessorDashboard = () => {
+const ProfessorDashboard = ({ profile }: { profile: string }) => {
   const [isRequestsVisible, setIsRequestsVisible] = useState(false);
 
   return (
@@ -192,7 +192,7 @@ const ProfessorDashboard = () => {
         </CardHeader>
         <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           <QuickLink href="/dashboard/orientandos" icon={BookUser}>Visualizar Orientandos</QuickLink>
-          <QuickLink href="/dashboard/cronogramas" icon={CalendarCheck}>Acompanhar Cronogramas</QuickLink>
+          <QuickLink href={`/dashboard/cronogramas?profile=${profile}`} icon={CalendarCheck}>Acompanhar Cronogramas</QuickLink>
           <QuickLink href="/dashboard/relatorios?profile=professor" icon={FileCheck2}>Aprovar/Rejeitar Relatórios</QuickLink>
         </CardContent>
       </Card>
@@ -201,7 +201,7 @@ const ProfessorDashboard = () => {
 };
 
 
-const CoordenadorDashboard = () => {
+const CoordenadorDashboard = ({ profile }: { profile: string }) => {
   return (
     <div className="grid gap-6">
       <Card>
@@ -226,7 +226,7 @@ const CoordenadorDashboard = () => {
         </CardHeader>
         <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           <QuickLink href="/dashboard/gerenciamento-orientandos" icon={Users}>Gerenciar Orientandos</QuickLink>
-          <QuickLink href="/dashboard/cronogramas" icon={CalendarCheck}>Acompanhar Cronogramas</QuickLink>
+          <QuickLink href={`/dashboard/cronogramas?profile=${profile}`} icon={CalendarCheck}>Acompanhar Cronogramas</QuickLink>
           <QuickLink href="/dashboard/relatorios?profile=coordenador" icon={FileCheck2}>Aprovar Relatórios</QuickLink>
           <QuickLink href="/dashboard/configuracoes" icon={Settings2}>Definir Regras do Curso</QuickLink>
           <QuickLink href="/dashboard/validar-documentos" icon={FileClock}>Validar Documentos</QuickLink>
@@ -269,9 +269,9 @@ export default function DashboardPage() {
   const renderDashboard = () => {
     switch (profile) {
       case 'professor':
-        return <ProfessorDashboard />;
+        return <ProfessorDashboard profile={profile} />;
       case 'coordenador':
-        return <CoordenadorDashboard />;
+        return <CoordenadorDashboard profile={profile} />;
       case 'administrativo':
         return <AdminDashboard />;
       case 'aluno':
