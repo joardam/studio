@@ -192,7 +192,7 @@ const ProfessorDashboard = () => {
         <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           <QuickLink href="/dashboard/orientandos" icon={BookUser}>Visualizar Orientandos</QuickLink>
           <QuickLink href="/dashboard/cronogramas" icon={CalendarCheck}>Acompanhar Cronogramas</QuickLink>
-          <QuickLink href="/dashboard/relatorios" icon={FileCheck2}>Aprovar/Rejeitar Relatórios</QuickLink>
+          <QuickLink href="/dashboard/relatorios?profile=professor" icon={FileCheck2}>Aprovar/Rejeitar Relatórios</QuickLink>
         </CardContent>
       </Card>
     </div>
@@ -225,8 +225,8 @@ const CoordenadorDashboard = () => {
         </CardHeader>
         <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           <QuickLink href="/dashboard/gerenciamento-orientandos" icon={Users}>Gerenciar Orientandos</QuickLink>
-          <QuickLink href="#" icon={CalendarCheck}>Acompanhar Cronogramas</QuickLink>
-          <QuickLink href="#" icon={FileCheck2}>Aprovar Relatórios</QuickLink>
+          <QuickLink href="/dashboard/cronogramas" icon={CalendarCheck}>Acompanhar Cronogramas</QuickLink>
+          <QuickLink href="/dashboard/relatorios?profile=coordenador" icon={FileCheck2}>Aprovar Relatórios</QuickLink>
           <QuickLink href="#" icon={Settings2}>Definir Regras do Curso</QuickLink>
           <QuickLink href="#" icon={FileClock}>Validar Documentos</QuickLink>
         </CardContent>

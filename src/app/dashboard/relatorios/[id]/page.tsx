@@ -1,24 +1,27 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { notFound, useParams, useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowLeft, FileText, MessageSquare } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import { ArrowLeft, File, MessageSquare, Check, X, Send, Clock, User } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useToast } from '@/hooks/use-toast';
 
 const relatoriosDetalhesMock = [
   {
     id: 1,
-    aluno: 'Vinícius de Moura',
-    avatarFallback: 'VM',
-    processo: 'TCC',
-    documento: 'Artigo_v2.pdf',
-    dataEnvio: '25/05/2025',
+    aluno: 'Carlos Eduardo',
+    avatarFallback: 'CE',
+    processo: 'Monitoria',
+    documento: 'Relatorio_Mensal_Monitoria.pdf',
+    dataEnvio: '28/06/2025',
     url: '#',
-    comentario: 'Professor, segue a segunda versão do artigo com os ajustes solicitados na metodologia. Adicionei mais detalhes sobre o dataset e os resultados preliminares.'
+    comentario: 'Professor, segue o relatório mensal de atividades da monitoria. Cumpri 20h no mês de junho.',
+    cargaHoraria: '20 horas',
   },
   {
     id: 2,
@@ -28,17 +31,19 @@ const relatoriosDetalhesMock = [
     documento: 'Relatorio_Parcial_2.pdf',
     dataEnvio: '30/05/2025',
     url: '#',
-    comentario: 'Segue o segundo relatório parcial do estágio. Gostaria de agendar uma reunião para discutir os próximos passos.'
+    comentario: 'Segue o segundo relatório parcial do estágio. Gostaria de agendar uma reunião para discutir os próximos passos.',
+    cargaHoraria: '120 horas',
   },
   {
     id: 3,
-    aluno: 'Ana Beatriz',
-    avatarFallback: 'AB',
-    processo: 'TCC',
-    documento: 'Capitulo_1.pdf',
-    dataEnvio: '26/06/2025',
+    aluno: 'João Silva',
+    avatarFallback: 'JS',
+    processo: 'Monitoria',
+    documento: 'Relatorio_Final_Monitoria.pdf',
+    dataEnvio: '01/07/2025',
     url: '#',
-    comentario: 'Olá, professor. Anexo o primeiro capítulo do TCC para sua avaliação. Aguardo seu feedback.'
+    comentario: 'Anexo o relatório final com todas as atividades desempenhadas durante o semestre.',
+    cargaHoraria: '100 horas totais',
   },
 ];
 
@@ -49,17 +54,36 @@ export default function DetalhesRelatorioPage() {
   const { toast } = useToast();
   const relatorio = relatoriosDetalhesMock.find((r) => r.id === parseInt(params.id, 10));
 
+  const [action, setAction] = useState<'approve' | 'reject' | null>(null);
+  const [feedback, setFeedback] = useState('');
+  const [error, setError] = useState('');
+
   if (!relatorio) {
     notFound();
   }
 
-  const handleDecision = (action: 'aprovado' | 'rejeitado') => {
+  const handleDecision = (decision: 'approve' | 'reject') => {
+    if (decision === 'reject' && !feedback.trim()) {
+        setError('A justificativa é obrigatória para rejeitar o relatório.');
+        return;
+    }
+    setError('');
+    
     toast({
         title: "Sucesso!",
-        description: `Relatório ${action} e notificação enviada para o aluno.`
+        description: decision === 'approve' 
+            ? "Relatório aprovado com sucesso."
+            : "O relatório foi rejeitado e o aluno notificado para realizar as correções."
     });
     router.push('/dashboard/relatorios');
   }
+
+  const handleCancelAction = () => {
+    setAction(null);
+    setFeedback('');
+    setError('');
+  }
+
 
   return (
     <div className="grid gap-6">
@@ -76,30 +100,19 @@ export default function DetalhesRelatorioPage() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        <div className="md:col-span-2 grid gap-6">
-          <Card>
+      <div className="grid lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 grid gap-6">
+          <Card className="flex flex-col">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <MessageSquare className="h-5 w-5" />
-                Comentário do Aluno
-              </CardTitle>
+                <CardTitle>Visualizador de Documento</CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">{relatorio.comentario}</p>
-            </CardContent>
-          </Card>
-           <Card>
-            <CardHeader>
-              <CardTitle>Análise e Feedback</CardTitle>
-              <CardDescription>Escreva seu parecer sobre o documento. Ele será enviado ao aluno.</CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-4">
-              <Textarea placeholder="Seu feedback aqui..." rows={5} />
-              <div className="grid grid-cols-2 gap-2">
-                <Button variant="destructive" onClick={() => handleDecision('rejeitado')}>Rejeitar com Feedback</Button>
-                <Button onClick={() => handleDecision('aprovado')}>Aprovar Relatório</Button>
-              </div>
+            <CardContent className="flex-1 flex flex-col items-center justify-center bg-muted/20 rounded-b-lg p-6 text-center">
+                 <File className="h-16 w-16 text-muted-foreground" />
+                 <p className="mt-4 font-semibold text-lg">{relatorio.documento}</p>
+                 <p className="text-sm text-muted-foreground">Visualização do PDF apareceria aqui.</p>
+                 <Button className="mt-4" asChild>
+                    <a href={relatorio.url} target="_blank" rel="noopener noreferrer">Abrir Documento em Nova Aba</a>
+                 </Button>
             </CardContent>
           </Card>
         </div>
@@ -109,30 +122,75 @@ export default function DetalhesRelatorioPage() {
             <CardHeader>
               <CardTitle>Informações</CardTitle>
             </CardHeader>
-            <CardContent className="grid gap-4">
-              <div className="flex items-center gap-4">
-                <Avatar>
-                  <AvatarImage src={`https://placehold.co/40x40.png`} alt={relatorio.aluno} data-ai-hint="person" />
-                  <AvatarFallback>{relatorio.avatarFallback}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="font-semibold">{relatorio.aluno}</p>
-                  <p className="text-sm text-muted-foreground">Processo de {relatorio.processo}</p>
-                </div>
+            <CardContent className="grid gap-4 text-sm">
+                <div className="flex items-center gap-3">
+                    <Avatar className="h-10 w-10">
+                    <AvatarImage src={`https://placehold.co/40x40.png`} alt={relatorio.aluno} data-ai-hint="person" />
+                    <AvatarFallback>{relatorio.avatarFallback}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                    <p className="font-semibold">{relatorio.aluno}</p>
+                    <p className="text-xs text-muted-foreground">Processo de {relatorio.processo}</p>
+                    </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-muted-foreground flex items-center gap-2"><Clock className="h-4 w-4"/> Carga Horária:</span>
+                <span className="font-medium">{relatorio.cargaHoraria}</span>
               </div>
             </CardContent>
           </Card>
+
            <Card>
             <CardHeader>
-              <CardTitle>Documento Enviado</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <MessageSquare className="h-5 w-5" />
+                Comentário do Aluno
+              </CardTitle>
             </CardHeader>
             <CardContent>
-                <Button variant="outline" className="w-full justify-start" asChild>
-                    <a href={relatorio.url} target="_blank" rel="noopener noreferrer">
-                        <FileText className="mr-2 h-4 w-4" />
-                        {relatorio.documento}
-                    </a>
-                </Button>
+              <p className="text-sm text-muted-foreground italic">"{relatorio.comentario}"</p>
+            </CardContent>
+          </Card>
+          
+           <Card>
+            <CardHeader>
+              <CardTitle>Análise e Parecer</CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-4">
+                {!action ? (
+                     <div className="grid grid-cols-2 gap-2">
+                        <Button variant="destructive" onClick={() => setAction('reject')}>
+                            <X className="mr-2 h-4 w-4" /> Rejeitar
+                        </Button>
+                        <Button className="bg-green-600 hover:bg-green-700" onClick={() => setAction('approve')}>
+                            <Check className="mr-2 h-4 w-4" /> Aprovar
+                        </Button>
+                    </div>
+                ) : (
+                    <div className="grid gap-4">
+                        <Label htmlFor="feedback">
+                           {action === 'approve' ? 'Feedback (Opcional)' : 'Justificativa e Orientações para Correção (Obrigatório)'}
+                        </Label>
+                        <Textarea 
+                            id="feedback"
+                            placeholder="Escreva seu parecer aqui..." 
+                            rows={4}
+                            value={feedback}
+                            onChange={(e) => {
+                                setFeedback(e.target.value)
+                                if(error) setError('');
+                            }}
+                            className={error ? 'border-destructive' : ''}
+                        />
+                        {error && <p className="text-xs text-destructive">{error}</p>}
+                        <div className="grid grid-cols-2 gap-2">
+                            <Button variant="outline" onClick={handleCancelAction}>Cancelar</Button>
+                            <Button onClick={() => handleDecision(action)}>
+                                <Send className="mr-2 h-4 w-4" /> Confirmar
+                            </Button>
+                        </div>
+                    </div>
+                )}
             </CardContent>
           </Card>
         </div>
