@@ -252,7 +252,7 @@ const AdminDashboard = () => {
           <CardTitle>Atalhos Rápidos</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          <QuickLink href="#" icon={Clock}>Definir e Ajustar Prazos</QuickLink>
+          <QuickLink href="/dashboard/prazos" icon={Clock}>Definir e Ajustar Prazos</QuickLink>
           <QuickLink href="#" icon={Award}>Gerar Certificados</QuickLink>
           <QuickLink href="#" icon={ClipboardList}>Exportar Relatórios</QuickLink>
         </CardContent>
