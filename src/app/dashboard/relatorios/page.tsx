@@ -97,7 +97,7 @@ function RelatoriosContent() {
                     {filteredRelatorios.length > 0 ? (
                         <div className="grid gap-4">
                             {filteredRelatorios.map((relatorio) => (
-                                <Link key={relatorio.id} href={`/dashboard/relatorios/${relatorio.id}`} className="block">
+                                <Link key={relatorio.id} href={`/dashboard/relatorios/${relatorio.id}?profile=${profile}`} className="block">
                                     <Card className="hover:bg-accent/50 transition-colors">
                                         <CardContent className="p-4 grid md:grid-cols-[auto_1fr_auto] items-center gap-4">
                                             <div className="flex items-center gap-4">

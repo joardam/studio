@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { notFound, useParams, useRouter } from 'next/navigation';
+import { notFound, useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -51,6 +51,7 @@ const relatoriosDetalhesMock = [
 export default function DetalhesRelatorioPage() {
   const router = useRouter();
   const params = useParams<{ id: string }>();
+  const searchParams = useSearchParams();
   const { toast } = useToast();
   const relatorio = relatoriosDetalhesMock.find((r) => r.id === parseInt(params.id, 10));
 
@@ -75,7 +76,10 @@ export default function DetalhesRelatorioPage() {
             ? "Relatório aprovado com sucesso."
             : "O relatório foi rejeitado e o aluno notificado para realizar as correções."
     });
-    router.push('/dashboard/relatorios');
+    
+    const profile = searchParams.get('profile');
+    const redirectUrl = profile ? `/dashboard/relatorios?profile=${profile}` : '/dashboard/relatorios';
+    router.push(redirectUrl);
   }
 
   const handleCancelAction = () => {
@@ -84,12 +88,14 @@ export default function DetalhesRelatorioPage() {
     setError('');
   }
 
+  const profile = searchParams.get('profile');
+  const backUrl = profile ? `/dashboard/relatorios?profile=${profile}` : '/dashboard/relatorios';
 
   return (
     <div className="grid gap-6">
       <div className="flex items-center gap-4">
         <Button asChild variant="outline" size="icon" className="shrink-0">
-          <Link href="/dashboard/relatorios">
+          <Link href={backUrl}>
             <ArrowLeft className="h-4 w-4" />
             <span className="sr-only">Voltar</span>
           </Link>
