@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useSearchParams } from "next/navigation";
@@ -254,7 +255,7 @@ const AdminDashboard = () => {
         <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           <QuickLink href="/dashboard/prazos" icon={Clock}>Definir e Ajustar Prazos</QuickLink>
           <QuickLink href="#" icon={Award}>Gerar Certificados</QuickLink>
-          <QuickLink href="#" icon={ClipboardList}>Exportar Relatórios</QuickLink>
+          <QuickLink href="/dashboard/exportar-relatorios" icon={ClipboardList}>Exportar Relatórios</QuickLink>
         </CardContent>
       </Card>
     </div>
