@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useSearchParams } from "next/navigation";
@@ -179,10 +178,6 @@ const ProfessorDashboard = () => {
                         <p className="text-sm text-muted-foreground">Solicitação de Orientação de {solicitacao.tipo}</p>
                         </div>
                     </Link>
-                    <div className="flex gap-2 ml-4">
-                        <Button variant="destructive" size="sm">Rejeitar</Button>
-                        <Button size="sm">Aprovar</Button>
-                    </div>
                 </div>
               ))}
             </CollapsibleContent>
