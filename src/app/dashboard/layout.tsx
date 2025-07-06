@@ -83,7 +83,7 @@ export default function DashboardLayout({
                 </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                    <Link href="#">
+                    <Link href="/dashboard/perfil">
                         <User className="mr-2 h-4 w-4" />
                         <span>Atualizar Cadastro</span>
                     </Link>

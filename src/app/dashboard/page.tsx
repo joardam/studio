@@ -121,11 +121,10 @@ const AlunoDashboard = () => {
         <CardHeader>
           <CardTitle>Atalhos Rápidos</CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           <QuickLink href={`/dashboard/candidaturas/nova?monitoriaAprovada=${monitoriaAprovada}`} icon={FilePlus2}>Submeter Candidatura</QuickLink>
           <QuickLink href="/dashboard/candidaturas" icon={ListTodo}>Acompanhar Candidaturas</QuickLink>
           <QuickLink href="/dashboard/cronograma" icon={Calendar}>Meu Cronograma</QuickLink>
-          <QuickLink href="#" icon={User}>Atualizar Cadastro</QuickLink>
         </CardContent>
       </Card>
     </div>
@@ -158,7 +157,7 @@ const ProfessorDashboard = () => {
           >
             <CollapsibleTrigger asChild>
               <Button variant="outline" size="sm" className="group">
-                <ChevronDown className="mr-2 h-4 w-4 transition-transform group-data-[state=open]:rotate-180" />
+                <ChevronDown className="mr-2 h-4 w-4 transition-transform data-[state=open]:rotate-180" />
                 {isRequestsVisible ? "Ocultar Solicitações" : "Visualizar Solicitações"}
               </Button>
             </CollapsibleTrigger>
@@ -195,11 +194,10 @@ const ProfessorDashboard = () => {
         <CardHeader>
           <CardTitle>Atalhos Rápidos</CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           <QuickLink href="#" icon={BookUser}>Visualizar Orientandos</QuickLink>
           <QuickLink href="#" icon={CalendarCheck}>Acompanhar Cronogramas</QuickLink>
           <QuickLink href="#" icon={FileCheck2}>Aprovar/Rejeitar Relatórios</QuickLink>
-          <QuickLink href="#" icon={User}>Atualizar Cadastro</QuickLink>
         </CardContent>
       </Card>
     </div>
@@ -230,14 +228,13 @@ const CoordenadorDashboard = () => {
         <CardHeader>
           <CardTitle>Atalhos Rápidos</CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           <QuickLink href="#" icon={BookUser}>Visualizar Orientandos</QuickLink>
           <QuickLink href="#" icon={CalendarCheck}>Acompanhar Cronogramas</QuickLink>
           <QuickLink href="#" icon={FileCheck2}>Aprovar Relatórios</QuickLink>
           <QuickLink href="#" icon={Settings2}>Definir Regras do Curso</QuickLink>
           <QuickLink href="#" icon={Users}>Trocar Orientador</QuickLink>
           <QuickLink href="#" icon={FileClock}>Validar Documentos</QuickLink>
-          <QuickLink href="#" icon={User}>Atualizar Cadastro</QuickLink>
         </CardContent>
       </Card>
     </div>
@@ -260,11 +257,10 @@ const AdminDashboard = () => {
         <CardHeader>
           <CardTitle>Atalhos Rápidos</CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           <QuickLink href="#" icon={Clock}>Definir e Ajustar Prazos</QuickLink>
           <QuickLink href="#" icon={Award}>Gerar Certificados</QuickLink>
           <QuickLink href="#" icon={ClipboardList}>Exportar Relatórios</QuickLink>
-          <QuickLink href="#" icon={User}>Atualizar Cadastro</QuickLink>
         </CardContent>
       </Card>
     </div>
