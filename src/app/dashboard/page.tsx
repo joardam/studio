@@ -192,7 +192,7 @@ const ProfessorDashboard = () => {
         <CardContent className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           <QuickLink href="/dashboard/orientandos" icon={BookUser}>Visualizar Orientandos</QuickLink>
           <QuickLink href="/dashboard/cronogramas" icon={CalendarCheck}>Acompanhar Cronogramas</QuickLink>
-          <QuickLink href="#" icon={FileCheck2}>Aprovar/Rejeitar Relatórios</QuickLink>
+          <QuickLink href="/dashboard/relatorios" icon={FileCheck2}>Aprovar/Rejeitar Relatórios</QuickLink>
         </CardContent>
       </Card>
     </div>
