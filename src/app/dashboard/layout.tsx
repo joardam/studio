@@ -33,7 +33,7 @@ export default function DashboardLayout({
             <GanttChartSquare className="h-6 w-6 text-primary" />
             <span className="sr-only">SGA</span>
           </Link>
-          <h1 className="text-lg font-semibold">
+          <h1 className="text-lg font-semibold whitespace-nowrap">
             Sistema de Gerenciamento Acadêmico
           </h1>
         </nav>
