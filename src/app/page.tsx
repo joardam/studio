@@ -15,6 +15,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 import { HelpCircle } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -22,7 +30,9 @@ import { useState, useEffect } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
+  const [isRegistering, setIsRegistering] = useState(false);
   const searchParams = useSearchParams();
+  const { toast } = useToast();
   
   const profileToEmailMap: { [key: string]: string } = {
     professor: "professor@upe.br",
@@ -36,14 +46,13 @@ export default function Login() {
     if (profileParam && profileToEmailMap[profileParam]) {
         setEmail(profileToEmailMap[profileParam]);
     }
-  }, [searchParams]);
+  }, [searchParams, profileToEmailMap]);
 
 
   const getProfileFromEmail = () => {
     if (email === "professor@upe.br") return "professor";
     if (email === "coordenador@upe.br") return "coordenador";
     if (email === "admin@upe.br") return "administrativo";
-    // Default to a student for any other email, including 'aluno@upe.br'
     return "aluno";
   };
   
@@ -51,7 +60,74 @@ export default function Login() {
     sessionStorage.setItem('userProfile', getProfileFromEmail());
   };
 
+  const handleRegisterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+        title: "Sucesso!",
+        description: "Solicitação de cadastro enviada para a administração.",
+    });
+    setIsRegistering(false);
+  };
+
   const dashboardUrl = `/dashboard?profile=${getProfileFromEmail()}`;
+
+  if (isRegistering) {
+    return (
+        <main className="flex min-h-screen items-center justify-center bg-background p-4">
+            <Card className="mx-auto w-full max-w-sm">
+                <CardHeader>
+                    <CardTitle className="text-2xl">Criar Conta</CardTitle>
+                    <CardDescription>
+                        Preencha seus dados para solicitar o acesso.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form onSubmit={handleRegisterSubmit}>
+                        <div className="grid gap-4">
+                            <div className="grid gap-2">
+                                <Label htmlFor="full-name">Nome Completo</Label>
+                                <Input id="full-name" placeholder="Seu nome completo" required />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="email-register">E-mail Institucional</Label>
+                                <Input id="email-register" type="email" placeholder="seu.email@upe.br" required />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="password-register">Senha</Label>
+                                <Input id="password-register" type="password" required />
+                            </div>
+                             <div className="grid gap-2">
+                                <Label htmlFor="password-confirm">Confirmar Senha</Label>
+                                <Input id="password-confirm" type="password" required />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="profile-type">Vínculo</Label>
+                                <Select required>
+                                    <SelectTrigger id="profile-type">
+                                        <SelectValue placeholder="Selecione seu vínculo" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="aluno">Aluno</SelectItem>
+                                        <SelectItem value="professor">Professor</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <Button type="submit" className="w-full">
+                                Solicitar Cadastro
+                            </Button>
+                        </div>
+                    </form>
+                    <div className="mt-4 text-center text-sm">
+                        Já tem uma conta?{" "}
+                        <button onClick={() => setIsRegistering(false)} className="underline">
+                            Entrar
+                        </button>
+                    </div>
+                </CardContent>
+            </Card>
+        </main>
+    );
+  }
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-background p-4">
@@ -139,9 +215,9 @@ export default function Login() {
           </div>
           <div className="mt-4 text-center text-sm">
             Não tem uma conta?{" "}
-            <Link href="#" className="underline">
+            <button onClick={() => setIsRegistering(true)} className="underline">
               Criar Conta
-            </Link>
+            </button>
           </div>
         </CardContent>
       </Card>
