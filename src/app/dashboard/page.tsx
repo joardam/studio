@@ -164,25 +164,25 @@ const ProfessorDashboard = () => {
             
             <CollapsibleContent className="mt-4 space-y-4">
               {solicitacoesPendentesMock.map((solicitacao) => (
-                <div key={solicitacao.id} className="flex items-center justify-between rounded-lg border p-4">
-                  <div className="flex items-center gap-4">
-                    <Avatar>
-                      <AvatarImage 
-                        src={`https://placehold.co/40x40.png`} 
-                        alt={solicitacao.aluno} 
-                        data-ai-hint="person"
-                      />
-                      <AvatarFallback>{solicitacao.avatarFallback}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className="font-semibold">{solicitacao.aluno}</p>
-                      <p className="text-sm text-muted-foreground">Solicitação de Orientação de {solicitacao.tipo}</p>
+                <div key={solicitacao.id} className="flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-accent/50">
+                    <Link href={`/dashboard/solicitacoes/${solicitacao.id}`} className="flex items-center gap-4 flex-1 group cursor-pointer">
+                        <Avatar>
+                        <AvatarImage 
+                            src={`https://placehold.co/40x40.png`} 
+                            alt={solicitacao.aluno} 
+                            data-ai-hint="person"
+                        />
+                        <AvatarFallback>{solicitacao.avatarFallback}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                        <p className="font-semibold group-hover:underline">{solicitacao.aluno}</p>
+                        <p className="text-sm text-muted-foreground">Solicitação de Orientação de {solicitacao.tipo}</p>
+                        </div>
+                    </Link>
+                    <div className="flex gap-2 ml-4">
+                        <Button variant="destructive" size="sm">Rejeitar</Button>
+                        <Button size="sm">Aprovar</Button>
                     </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="destructive" size="sm">Rejeitar</Button>
-                    <Button size="sm">Aprovar</Button>
-                  </div>
                 </div>
               ))}
             </CollapsibleContent>
